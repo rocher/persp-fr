@@ -1,14 +1,14 @@
-# persp-fr
-This code is an extension of the [`persp-mode`](https://github.com/..) mode that
-uses the GUI's window title (AKA *frame name*, in Emacs nomenclature) to show a
-list of the current perspectives. It also indicates which one is currently
-selected.
+# persp-mode-fr
+This code is an extension of
+the [`persp-mode`](https://github.com/Bad-ptr/persp-mode.el) mode that uses the
+GUI window title (AKA *frame name*, in Emacs nomenclature) to show a
+perspectives list. It also indicates the currently selected one.
 
 ## Usage
 Mostly the same as `persp-mode`:
 
 ```{lisp}
-    (require 'persp-fr)     ;; was (require 'persp-mode)
+    (require 'persp-mode-fr)     ;; was (require 'persp-mode)
     (persp-fr-start)
 ```
 
@@ -23,10 +23,13 @@ interfaces:
 
 The customization group lets you tweak few parameters.
 
-Access it as usual: `M-x customize-group RET persp-fr RET`.
+Access it as usual: `M-x customize-group RET persp-mode-fr RET`.
 
 
 ## Example
+The images I could show here are mostly the same as the ones you can see
+in [`elscreen-fr`](http://github.com/rocher/elscreen-fr), except that
+`persp-mode-fr` shows only the perspective name.
 
 
 ## Finally
