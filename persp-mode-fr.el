@@ -5,7 +5,7 @@
 ;; Author: Francesc Rocher <francesc.rocher@gmail.com>
 ;; URL: http://github.com/rocher/persp-mode-fr
 ;; Version: 0.0.1
-;; Package-Requires: ((persp-mode >= "2.9.1"))
+;; Package-Requires: ((persp-mode "2.9.1"))
 ;; Keywords: perspectives, workspace, windows, convenience
 
 ;; This program is free software; you can redistribute it and/or modify
