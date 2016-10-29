@@ -28,7 +28,7 @@ Access it as usual: `M-x customize-group RET persp-mode-fr RET`.
 
 ## Example
 The images I could show here are mostly the same as the ones you can see
-in [`elscreen-fr`](http://github.com/rocher/elscreen-fr), except that
+in [`elscreen-fr`](http://github.com/rocher/elscreen-fr#example), except that
 `persp-mode-fr` shows only the perspective name.
 
 
