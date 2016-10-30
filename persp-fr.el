@@ -1,11 +1,11 @@
-;;; persp-mode-fr.el --- In persp-mode, show perspective list in the frame title
+;;; persp-fr.el --- In persp-mode, show perspective list in the GUI window title
 
 ;; Copyright (C) 2016 Francesc Rocher
 
 ;; Author: Francesc Rocher <francesc.rocher@gmail.com>
-;; URL: http://github.com/rocher/persp-mode-fr
+;; URL: http://github.com/rocher/persp-fr
 ;; Version: 0.0.1
-;; Package-Requires: ((persp-mode "2.9.1"))
+;; Package-Requires: ((emacs "25.0") (persp-mode "2.9.1"))
 ;; Keywords: perspectives, workspace, windows, convenience
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -23,13 +23,13 @@
 
 ;;; Commentary:
 
-;; This code is an extension of the `persp-mode' mode that uses your window
-;; title (Emacs frame name) to show the list of current perspectives and
+;; This code is an extension of the `persp-mode' mode that uses your GUI window
+;; title (aka Emacs frame name) to show the list of current perspectives and
 ;; indicates the current one.
 
 ;; Installation:
 
-;; From the MELPA: M-x package-install RET `persp-mode-fr' RET.
+;; From the MELPA: M-x package-install RET `persp-fr' RET.
 
 ;; From a file: M-x `package-install-file' RET 'path to this file' RET Or put
 ;; this file into your load-path.
@@ -38,13 +38,13 @@
 
 ;; The same as `persp-mode':
 
-;;    (require 'persp-mode-fr)    ;; was (require 'persp-mode)
+;;    (require 'persp-fr)    ;; was (require 'persp-mode)
 ;;    (persp-fr-start)
 
 ;; Customization:
 
 ;; The customization group lets you tweak few parameters: M-x `customize-group'
-;; RET 'persp-mode-fr' RET.
+;; RET 'persp-fr' RET.
 
 ;; Useful keys to change to next/previous perspective, as in most user
 ;; interfaces using tabs:
@@ -59,9 +59,9 @@
 
 (require 'persp-mode)
 
-(defgroup persp-mode-fr nil
-  "Customization of the `persp-mode-fr' mode."
-  :tag "persp-mode-fr"
+(defgroup persp-fr nil
+  "Customization of the `persp-fr' mode."
+  :tag "persp-fr"
   :group 'environment)
 
 (defcustom persp-fr-title-max-length nil
@@ -83,7 +83,7 @@
          (custom-set-default symbol value)
          (when (fboundp 'persp-fr-update)
            (persp-fr-update nil)))
-  :group 'persp-mode-fr)
+  :group 'persp-fr)
 
 (defcustom persp-fr-title-prefix nil
   "Prefix to be used in the window title."
@@ -95,7 +95,7 @@
          (custom-set-default symbol value)
          (when (fboundp 'persp-fr-update)
            (persp-fr-update nil)))
-  :group 'persp-mode-fr)
+  :group 'persp-fr)
 
 (defvar persp-fr-default-frame-name (frame-parameter nil 'name))
 
@@ -145,5 +145,5 @@ are shown in the frame title."
   (add-hook 'persp-renamed-functions #'persp-fr-rename-hook)
   (persp-fr-update nil))
 
-(provide 'persp-mode-fr)
-;;; persp-mode-fr.el ends here
+(provide 'persp-fr)
+;;; persp-fr.el ends here
