@@ -102,15 +102,15 @@
 (defun persp-fr-update (name)
   "Keep a list of perspective names in the frame title."
   (interactive)
-  (let ((current (or (if (listp name) nil name)
+  (let ((current (or (if (or (null name) (listp name)) nil name)
                      (frame-parameter nil 'persp-fr-persp-current)
                      persp-nil-name))
-        (persp-list (persp-names-current-frame-fast-ordered))
+        (persp-list (or (persp-names-current-frame-fast-ordered)
+                        (list persp-nil-name)))
         (title (concat (or persp-fr-title-prefix
                            persp-fr-default-frame-name
                            (frame-parameter nil 'persp-fr-frame-name))
                        "   -")))
-    ;;.debug (message (format "switched to perspective %s" current))
     (dolist (persp persp-list)
       (setq title
             (concat title
