@@ -119,7 +119,7 @@
                       (mapconcat
                        #'(lambda (persp)
                            (if (string= current persp)
-                               (concat "[ " persp " ]")
+                               (concat "[ " (upcase persp) " ]")
                              persp))
                        persp-list
                        " - ")
