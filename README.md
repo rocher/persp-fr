@@ -4,6 +4,14 @@ the [`persp-mode`](https://github.com/Bad-ptr/persp-mode.el) mode that uses the
 GUI window title (AKA *frame name*, in Emacs nomenclature) to show a
 perspectives list. It also indicates the currently selected one.
 
+## Change Log
+
+  * Release 0.0.2 - 07/09/2017 - Last `persp-mode` release reversed the list of
+    `persp` names, which affected how names are shown in the title bar.
+    Now names in `persp-fr` are shown as before. If you use the customization
+    shown below, please consider exchanging the key assignment. Otherwise you
+    will navigate `persp` buffers in reverse order.
+
 ## Usage
 Mostly the same as `persp-mode`:
 
