@@ -6,6 +6,9 @@ perspectives list. It also indicates the currently selected one.
 
 ## Change Log
 
+  * Release 0.0.3 - 08/09/2017 - Revert last change because `persp-mode` now
+    properly sorts the list of names.
+
   * Release 0.0.2 - 07/09/2017 - Last `persp-mode` release reversed the list of
     `persp` names, which affected how names are shown in the title bar.
     Now names in `persp-fr` are shown as before. If you use the customization
