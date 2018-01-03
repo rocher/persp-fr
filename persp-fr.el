@@ -1,11 +1,11 @@
 ;;; persp-fr.el --- In persp-mode, show perspective list in the GUI window title
 
-;; Copyright (C) 2016, 2017 Francesc Rocher
+;; Copyright (C) 2016 - 2018 Francesc Rocher
 
 ;; Author: Francesc Rocher <francesc.rocher@gmail.com>
 ;; URL: http://github.com/rocher/persp-fr
-;; Version: 0.0.3
-;; Package-Requires: ((emacs "25.0") (persp-mode "2.9.6"))
+;; Version: 0.0.4
+;; Package-Requires: ((emacs "25.0") (persp-mode "2.9.6") (dash "2.13.0"))
 ;; Keywords: perspectives, workspace, windows, convenience
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -25,7 +25,8 @@
 
 ;; This code is an extension of the `persp-mode' mode that uses your GUI window
 ;; title (aka Emacs frame name) to show the list of current perspectives and
-;; indicates the current one.
+;; indicates the current one. It also permits to move the current perspective to
+;; the left, right, first or last position.
 
 ;; Installation:
 
@@ -47,10 +48,12 @@
 ;; RET 'persp-fr' RET.
 
 ;; Useful keys to change to next/previous perspective, as in most user
-;; interfaces using tabs:
+;; interfaces using tabs, and to move current perspective to left/right:
 
 ;;     (global-set-key [(control prior)] 'persp-prev)
 ;;     (global-set-key [(control next)] 'persp-next)
+;;     (global-set-key [(control meta next)] 'persp-fr-move-right)
+;;     (global-set-key [(control meta prior)] 'persp-fr-move-left)
 
 
 ;; Tested only under Linux / Gnome. Feedback welcome!
@@ -58,6 +61,7 @@
 ;;; Code:
 
 (require 'persp-mode)
+(require 'dash)
 
 (defgroup persp-fr nil
   "Customization of the `persp-fr' mode."
@@ -97,6 +101,15 @@
            (persp-fr-update nil)))
   :group 'persp-fr)
 
+(defcustom persp-fr-move-cycle-at-end t
+  "When true, `persp-fr-move-left' and `persp-fr-move-right'
+  functions will cycle the perspective if it is moved further the
+  beginning or the end."
+  :tag "Cycle moved perspectives"
+  :type '(boolean)
+  :group 'persp-fr
+  )
+
 (defvar persp-fr-default-frame-name (frame-parameter nil 'name))
 
 (defun persp-fr-update (&optional hook &rest rest)
@@ -128,6 +141,59 @@
                  (> (length title) persp-fr-title-max-length))
             (setq title (concat (substring title 0 persp-fr-title-max-length) " ..")))
         (set-frame-name title)))))
+
+(defun persp-fr-current-name ()
+  (let* ((persp (get-current-persp)))
+    (if (null persp)
+        persp-nil-name
+      (persp-name persp))))
+
+(defun persp-fr-move-first ()
+  "Move current perspective to the first place."
+  (interactive)
+  (let* ((name (persp-fr-current-name))
+         (idx (-elem-index name persp-names-cache))
+         (lst (-remove-at idx persp-names-cache)))
+    (setq persp-names-cache (cons name lst)))
+  (persp-fr-update))
+
+(defun persp-fr-move-last ()
+  "Move current perspective to the last place."
+  (interactive)
+  (let* ((name (persp-fr-current-name))
+         (idx (-elem-index name persp-names-cache))
+         (lst (-remove-at idx persp-names-cache)))
+    (setq persp-names-cache (-snoc lst name)))
+  (persp-fr-update))
+
+(defun persp-fr-move-left ()
+  "Move current perspective to the left."
+  (interactive)
+  (let* ((name (persp-fr-current-name))
+         (idx (-elem-index name persp-names-cache))
+         (lst (-remove-at idx persp-names-cache)))
+    (setq persp-names-cache
+          (if (= idx 0)
+              (if persp-fr-move-cycle-at-end
+                  (-snoc lst name)
+                persp-names-cache)
+            (-insert-at (- idx 1) name lst))))
+  (persp-fr-update))
+
+(defun persp-fr-move-right ()
+  "Move current perspective to the right."
+  (interactive)
+  (let* ((cper (get-current-persp))
+         (name (persp-fr-current-name))
+         (idx (-elem-index name persp-names-cache))
+         (lst (-remove-at idx persp-names-cache)))
+    (setq persp-names-cache
+          (if (= idx (length lst))
+              (if persp-fr-move-cycle-at-end
+                  (cons name lst)
+                persp-names-cache)
+            (-insert-at (+ idx 1) name lst))))
+  (persp-fr-update))
 
 ;;;###autoload
 (defun persp-fr-start ()

@@ -6,6 +6,9 @@ perspectives list. It also indicates the currently selected one.
 
 ## Change Log
 
+  * Release 0.0.4 - 03/01/2018 - Add functions to move the current perspective
+    to the left, right, first or last position.
+
   * Release 0.0.3 - 08/09/2017 - Revert last change because `persp-mode` now
     properly sorts the list of names.
 
@@ -24,17 +27,19 @@ Mostly the same as `persp-mode`:
 ```
 
 ## Customization
+The customization group lets you tweak few parameters.
+
+Access it as usual: `M-x customize-group RET persp-fr RET`.
+
 Useful keys to switch from next/previous perspective, as in most tabbed user
-interfaces:
+interfaces, and to move current perspective to left/right:
 
 ```{lisp}
     (global-set-key [(control prior)] 'persp-prev)
     (global-set-key [(control next)] 'persp-next)
+    (global-set-key [(control meta next)] 'persp-fr-move-right)
+    (global-set-key [(control meta prior)] 'persp-fr-move-left)
 ```
-
-The customization group lets you tweak few parameters.
-
-Access it as usual: `M-x customize-group RET persp-fr RET`.
 
 
 ## Example
