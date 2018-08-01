@@ -161,6 +161,18 @@ form `N/'. Useful to move to a perspective with a key binding."
         persp-nil-name
       (persp-name persp))))
 
+(defun persp-fr-switch-nth (persp-num)
+  "Switch to perspective number `persp-num'. Perspectives are
+numbered from left to right starting with 1."
+(interactive "nperspective number: ")
+(let* ((persp-list (persp-names-current-frame-fast-ordered))
+       (persp-list-length (length persp-list)))
+  (if (and (<= 1 persp-num) (<= persp-num persp-list-length))
+      (progn
+        (persp-switch (nth (1- persp-num) persp-list))
+        (message (format "switched to perspective %s" (nth (1- persp-num) persp-list))))
+    (message "invalid perspective number"))))
+
 (defun persp-fr-move-first ()
   "Move current perspective to the first place."
   (interactive)
