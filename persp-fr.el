@@ -68,6 +68,13 @@
   :tag "persp-fr"
   :group 'environment)
 
+(defcustom persp-fr-use-prefix-numbers t
+  "When true, perspective names are prefix with a number of the
+form `N/'. Useful to move to a perspective with a key binding."
+  :tag "Use prefix numbers in perspective names"
+  :type '(boolean)
+  :group 'persp-fr)
+
 (defcustom persp-fr-title-max-length nil
   "Limit the length of the title shown in the window title."
   :tag "Max length of frame titles."
@@ -119,6 +126,7 @@
                  (eq (car rest) current))
       (setq current (safe-persp-name current))
       (let ((persp-list (persp-names-current-frame-fast-ordered))
+            (i 0)
             title)
         (when (eq hook 'persp-before-kill-functions)
           (setq persp-list
@@ -131,9 +139,14 @@
                       "   - "
                       (mapconcat
                        #'(lambda (persp)
-                           (if (string= current persp)
-                               (concat "[ " persp " ]")
-                             persp))
+                           (let ((persp-name persp))
+                             (if persp-fr-use-prefix-numbers
+                                 (progn
+                                   (setq i (1+ i))
+                                   (setq persp-name (format "%d=%s" i persp))))
+                             (if (string= current persp)
+                                 (concat "[ " persp-name " ]")
+                               persp-name)))
                        persp-list
                        " - ")
                       " -"))
