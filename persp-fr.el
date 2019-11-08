@@ -5,7 +5,7 @@
 ;; Author: Francesc Rocher <francesc.rocher@gmail.com>
 ;; URL: http://github.com/rocher/persp-fr
 ;; Version: 0.0.4
-;; Package-Requires: ((emacs "25.0") (persp-mode "2.9.6") (dash "2.13.0"))
+;; Package-Requires: ((emacs "25.1") (persp-mode "2.9.6") (dash "2.13.0"))
 ;; Keywords: perspectives, workspace, windows, convenience
 
 ;; This program is free software; you can redistribute it and/or modify
