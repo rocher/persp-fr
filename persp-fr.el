@@ -1,10 +1,10 @@
 ;;; persp-fr.el --- In persp-mode, show perspective list in the GUI window title
 
-;; Copyright (C) 2016 - 2018 Francesc Rocher
+;; Copyright (C) 2016 - 2019 Francesc Rocher
 
 ;; Author: Francesc Rocher <francesc.rocher@gmail.com>
 ;; URL: http://github.com/rocher/persp-fr
-;; Version: 0.0.4
+;; Version: 0.0.5
 ;; Package-Requires: ((emacs "25.1") (persp-mode "2.9.6") (dash "2.13.0"))
 ;; Keywords: perspectives, workspace, windows, convenience
 
@@ -58,6 +58,9 @@
 
 
 ;; Tested only under Linux / Gnome.  Feedback welcome!
+
+;; Thanks to:
+;;    - Naoya Yamashita, for fixing some lint issues
 
 ;;; Code:
 
