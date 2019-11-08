@@ -115,8 +115,7 @@ Useful to move to a perspective with a key binding."
 the perspective if it is moved further the beginning or the end."
   :tag "Cycle moved perspectives"
   :type '(boolean)
-  :group 'persp-fr
-  )
+  :group 'persp-fr)
 
 (defvar persp-fr-default-frame-name (frame-parameter nil 'name))
 
