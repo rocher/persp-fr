@@ -23,17 +23,18 @@
 
 ;;; Commentary:
 
-;; This code is an extension of the `persp-mode' mode that uses your GUI window
-;; title (aka Emacs frame name) to show the list of current perspectives and
-;; indicates the current one. It also permits to move the current perspective to
-;; the left, right, first or last position.
+;; This code is an extension of the `persp-mode' mode that uses your
+;; GUI window title (aka Emacs frame name) to show the list of current
+;; perspectives and indicates the current one.  It also permits to
+;; move the current perspective to the left, right, first or last
+;; position.
 
 ;; Installation:
 
 ;; From the MELPA: M-x package-install RET `persp-fr' RET.
 
-;; From a file: M-x `package-install-file' RET 'path to this file' RET Or put
-;; this file into your load-path.
+;; From a file: M-x `package-install-file' RET 'path to this file' RET
+;; Or put this file into your load-path.
 
 ;; Usage:
 
@@ -56,7 +57,7 @@
 ;;     (global-set-key [(control meta prior)] 'persp-fr-move-left)
 
 
-;; Tested only under Linux / Gnome. Feedback welcome!
+;; Tested only under Linux / Gnome.  Feedback welcome!
 
 ;;; Code:
 
@@ -69,8 +70,8 @@
   :group 'environment)
 
 (defcustom persp-fr-use-prefix-numbers t
-  "When true, perspective names are prefix with a number of the
-form `N/'. Useful to move to a perspective with a key binding."
+  "When non-nil, perspective names are prefix with a number.
+Useful to move to a perspective with a key binding."
   :tag "Use prefix numbers in perspective names"
   :type '(boolean)
   :group 'persp-fr)
@@ -109,9 +110,9 @@ form `N/'. Useful to move to a perspective with a key binding."
   :group 'persp-fr)
 
 (defcustom persp-fr-move-cycle-at-end t
-  "When true, `persp-fr-move-left' and `persp-fr-move-right'
-  functions will cycle the perspective if it is moved further the
-  beginning or the end."
+  "When non-nil, perform cycle move.
+`persp-fr-move-left' and `persp-fr-move-right' functions will cycle
+the perspective if it is moved further the beginning or the end."
   :tag "Cycle moved perspectives"
   :type '(boolean)
   :group 'persp-fr
@@ -120,7 +121,9 @@ form `N/'. Useful to move to a perspective with a key binding."
 (defvar persp-fr-default-frame-name (frame-parameter nil 'name))
 
 (defun persp-fr-update (&optional hook &rest rest)
-  "Keep a list of perspective names in the frame title."
+  "Keep a list of perspective names in the frame title.
+
+\(fn &optional HOOK &rest REST)"
   (let ((current (get-current-persp)))
     (unless (and (eq hook 'persp-before-kill-functions)
                  (eq (car rest) current))
@@ -156,14 +159,15 @@ form `N/'. Useful to move to a perspective with a key binding."
         (set-frame-name title)))))
 
 (defun persp-fr-current-name ()
+  "Return current persp name."
   (let* ((persp (get-current-persp)))
     (if (null persp)
         persp-nil-name
       (persp-name persp))))
 
 (defun persp-fr-switch-nth (persp-num)
-  "Switch to perspective number `persp-num'. Perspectives are
-numbered from left to right starting with 1."
+  "Switch to perspective number PERSP-NUM.
+Perspectives are numbered from left to right starting with 1."
   (interactive "nperspective number: ")
   (let* ((persp-list (persp-names-current-frame-fast-ordered))
          (persp-list-length (length persp-list)))
@@ -222,7 +226,7 @@ numbered from left to right starting with 1."
 
 ;;;###autoload
 (defun persp-fr-start ()
-  "Starts `persp-fr' mode.
+  "Start `persp-fr' mode.
 This is exactly the same as `persp-mode', but perspective names
 are shown in the frame title."
   (interactive)
