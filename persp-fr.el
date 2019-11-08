@@ -63,6 +63,7 @@
 
 (require 'persp-mode)
 (require 'dash)
+(require 'cl-lib)
 
 (defgroup persp-fr nil
   "Customization of the `persp-fr' mode."
@@ -229,17 +230,17 @@ Perspectives are numbered from left to right starting with 1."
 This is exactly the same as `persp-mode', but perspective names
 are shown in the frame title."
   (interactive)
-  (macrolet ((add-persp-hooks
-              (&rest hooks)
-              (let (code)
-                (dolist (hook hooks)
-                  (push
-                   `(add-hook
-                     ',hook
-                     #'(lambda (&rest rest)
-                         (apply #'persp-fr-update ',hook rest)))
-                   code))
-                `(progn ,@code))))
+  (cl-macrolet ((add-persp-hooks
+                 (&rest hooks)
+                 (let (code)
+                   (dolist (hook hooks)
+                     (push
+                      `(add-hook
+                        ',hook
+                        #'(lambda (&rest rest)
+                            (apply #'persp-fr-update ',hook rest)))
+                      code))
+                   `(progn ,@code))))
     (add-persp-hooks persp-before-kill-functions persp-activated-functions
                      persp-created-functions persp-renamed-functions
                      focus-in-hook))
